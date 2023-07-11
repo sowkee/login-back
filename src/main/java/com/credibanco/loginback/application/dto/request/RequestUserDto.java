@@ -2,17 +2,18 @@ package com.credibanco.loginback.application.dto.request;
 
 import com.credibanco.loginback.domain.model.Otp;
 import com.credibanco.loginback.domain.model.Rol;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 @Component
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RequestUserDto {
-	
+
 	@JsonProperty("id")
 	private long id;
-    @JsonProperty("identification")
-    private String identification;
     
 	@JsonProperty("name")
     private String name;
@@ -29,8 +30,10 @@ public class RequestUserDto {
     @JsonProperty("password")
     private String password;
     @JsonProperty("otp")
+    @JsonIgnore
     private Otp otp;
     @JsonProperty("rol")
+    @JsonIgnore
     private List<Rol> rol;
 
 
@@ -41,14 +44,6 @@ public class RequestUserDto {
 	public void setId(long id) {
         this.id = id;
 	}
-
-    public String getIdentification() {
-        return identification;
-    }
-
-    public void setIdentification(String identification) {
-        this.identification = identification;
-    }
 
     public String getName() {
         return name;

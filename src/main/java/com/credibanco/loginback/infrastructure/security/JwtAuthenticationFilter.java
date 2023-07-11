@@ -48,6 +48,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String newToken = jwtUtils.generateToken(userDetails);
+            response.addHeader("Authorization", "Bearer " + newToken);
+        }
+
         chain.doFilter(request, response);
     }
 }
+
+

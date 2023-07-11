@@ -57,3 +57,9 @@ public class AuthenticationController {
         return (User) this.userDetailsService.loadUserByUsername(principal.getName());
     }
 }
+
+
+
+
+
+

@@ -1,34 +1,30 @@
 package com.credibanco.loginback.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-
 import java.util.Collection;
 import java.util.List;
-
-
 import javax.persistence.*;
 
 @Entity
 @Component
 @Table(name = "USERS")
+@JsonIgnoreProperties
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private long id;
-    @Column(name = "IDENTIFICATION")
-    private String identification;
     
     @Column(name= "NAME")
     private String name;
     
-    @Column(name= "LAST_NAME")
+    @Column(name= "LASTNAME")
     private String lastName;
-    
     @Column (name= "EMAIL")
     private String email;
     
@@ -40,6 +36,7 @@ public class User implements UserDetails {
 
     @JsonManagedReference
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     private Otp otp;
 
     @ManyToMany
@@ -48,8 +45,8 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROL_ID")
     )
+    @JsonIgnore
     private List<Rol> rol;
-
 
     public long getId() {
 		return id;
@@ -58,14 +55,6 @@ public class User implements UserDetails {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-    public String getIdentification() {
-        return identification;
-    }
-
-    public void setIdentification(String identification) {
-        this.identification = identification;
-    }
 
     public String getName() {
         return name;
@@ -99,6 +88,22 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
+     public String getPassword() {
+         return password;
+     }
+
+     public void setPassword(String password) {
+         this.password = password;
+     }
+
+     public Otp getOtp() {
+         return otp;
+     }
+
+     public void setOtp(Otp otp) {
+         this.otp = otp;
+     }
+
     public List<Rol> getRol() {
         return rol;
     }
@@ -107,13 +112,10 @@ public class User implements UserDetails {
         this.rol = rol;
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -141,15 +143,5 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public Otp getOtp() {
-        return otp;
-    }
-
-    public void setOtp(Otp otp) {
-        this.otp = otp;
-    }
 }

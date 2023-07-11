@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    @Autowired
-    private static ObjectMapper objectMapper;
+
+    private static ObjectMapper objectMapper = new ObjectMapper();
     public static ResponseUserDto convertUserToResponseDTO (User user){
         return objectMapper.convertValue(user, ResponseUserDto.class);
     }

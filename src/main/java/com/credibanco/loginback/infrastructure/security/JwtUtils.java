@@ -12,11 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-
 @Component
 public class JwtUtils {
 
     private final String SECRET_KEY = "154E29F9B4D825F28C8F93586BC1DCBA75D379FE5F17822D5783D338FB";
+    private static final long TOKEN_EXPIRATION = 20000 * 60 * 60 * 10;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -38,13 +38,17 @@ public class JwtUtils {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
+
     private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        Date expirationDate = extractExpiration(token);
+        return expirationDate == null || expirationDate.before(new Date());
     }
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", userDetails.getUsername());
+
+        System.out.println();
         return createToken(claims);
     }
 
@@ -54,7 +58,7 @@ public class JwtUtils {
                 .setHeaderParam("typ", "JWT")
                 .setClaims(claims)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .setExpiration(new Date(System.currentTimeMillis() + (20000 * 60 * 60 * 10)))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
@@ -64,3 +68,9 @@ public class JwtUtils {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
+
+
+
+
+
+

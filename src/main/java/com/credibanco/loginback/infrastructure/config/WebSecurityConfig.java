@@ -26,10 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @Override
     @Bean
@@ -57,14 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().disable()
                 .authorizeRequests()
-                    .antMatchers(WHITELIST).permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers(WHITELIST).permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .exceptionHandling()
-                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                    .and()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -74,3 +73,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
 }
+
+
