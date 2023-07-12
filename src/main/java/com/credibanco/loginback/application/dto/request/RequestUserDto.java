@@ -4,8 +4,12 @@ import com.credibanco.loginback.domain.model.Otp;
 import com.credibanco.loginback.domain.model.Rol;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Component
@@ -16,24 +20,30 @@ public class RequestUserDto {
 	private long id;
     
 	@JsonProperty("name")
+    @NotNull
     private String name;
     
     @JsonProperty("lastName")
+    @NotNull
     private String lastName;
     
     @JsonProperty("email")
+    @Email(message = "El correo no es valido.")
     private String email;
     
     @JsonProperty("phoneNumber")
     private String phoneNumber;
     
     @JsonProperty("password")
+    @NotNull
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+            message = "La contraseña no es valida, ej.(Ejpl1234*)")
     private String password;
     @JsonProperty("otp")
-    @JsonIgnore
+    @JsonIgnore(value = false)
     private Otp otp;
     @JsonProperty("rol")
-    @JsonIgnore
+    @JsonIgnore(value = false)
     private List<Rol> rol;
 
 

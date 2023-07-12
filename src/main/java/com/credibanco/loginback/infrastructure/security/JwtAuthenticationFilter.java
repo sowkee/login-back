@@ -1,5 +1,5 @@
 package com.credibanco.loginback.infrastructure.security;
-
+/*
 import com.credibanco.loginback.application.service.impl.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,5 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 }
+
+ */
 
 

@@ -4,10 +4,10 @@ package com.credibanco.loginback.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import java.util.Collection;
+//import java.util.Collection;
 import java.util.List;
 import javax.persistence.*;
 
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Component
 @Table(name = "USERS")
 @JsonIgnoreProperties
-public class User implements UserDetails {
+public class User /*implements UserDetails*/ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private long id;
@@ -112,7 +112,7 @@ public class User implements UserDetails {
         this.rol = rol;
     }
 
-
+/*
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -142,6 +142,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+ */
 
 
 }

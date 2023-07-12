@@ -6,14 +6,14 @@ import com.credibanco.loginback.domain.model.User;
 import com.credibanco.loginback.domain.repository.IRepositoryUser;
 import com.credibanco.loginback.application.service.IServiceUser;
 import com.credibanco.loginback.application.mapper.UserMapper;
-import com.credibanco.loginback.infrastructure.security.JwtUtils;
+//import com.credibanco.loginback.infrastructure.security.JwtUtils;
 import com.credibanco.loginback.shared.exception.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -24,22 +24,25 @@ public class ImplUser implements IServiceUser {
 	Logger logger = LoggerFactory.getLogger(ImplUser.class);
     @Autowired
 	IRepositoryUser iRepositoryUser;
-	@Autowired
+	/*@Autowired
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	JwtUtils jwtUtils;
+
 	@Autowired
 	UserDetails userDetails;
-
+*/
     @Override
     public List<ResponseUserDto> getAllUsers(String token) {
     	try {
-			if (!jwtUtils.validateToken(token, userDetails)) {
+			/*if (!jwtUtils.validateToken(token, userDetails)) {
 				throw new UnauthorizedException("Token inválido o expirado");
 			}
+
+			 */
     		List<User> userList = iRepositoryUser.findAll();
             return userList.stream()
-                    .map(user -> UserMapper.convertUserToResponseDTO(user))
+                    .map(UserMapper::convertUserToResponseDTO)
                     .collect(Collectors.toList());
     	}catch(Exception e) {
     		logger.error("Impl | Error.", e);
@@ -73,7 +76,7 @@ public class ImplUser implements IServiceUser {
 				return null;
 			}else {
 				User userMapper = UserMapper.convertRequestToUser(requestUserDto);
-				userMapper.setPassword(passwordEncoder.encode(requestUserDto.getPassword()));
+				//userMapper.setPassword(passwordEncoder.encode(requestUserDto.getPassword()));
 				iRepositoryUser.saveAndFlush(userMapper);
 				logger.info("Impl | Save&Flush");
 				return UserMapper.convertUserToResponseDTO(userMapper);

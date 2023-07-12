@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.credibanco.loginback.application.dto.request.RequestUserDto;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 

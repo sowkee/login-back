@@ -6,33 +6,41 @@ import com.credibanco.loginback.application.dto.response.ResponseUserDto;
 import com.credibanco.loginback.domain.model.User;
 import com.credibanco.loginback.application.service.IServiceUser;
 
+import com.credibanco.loginback.shared.exception.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping ("users")
+@Validated
+@ControllerAdvice
 public class ControllerUser {
+
+
 	Logger logger= LoggerFactory.getLogger(ControllerUser.class);
-	
     @Autowired
     IServiceUser iServiceUser;
-    
     @Autowired
     User user;
 
+    @ExceptionHandler(value = Exception.class)
+
     @GetMapping ("get/all")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getAllUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+    public ResponseEntity<Map<String, Object>> getAllUser(/*@RequestHeader(HttpHeaders.AUTHORIZATION) String token*/){
         Map<String, Object> res = new HashMap<>();
+        String token = "";
         try {
         	List<ResponseUserDto> responseUserDto = iServiceUser.getAllUsers(token);
           if (responseUserDto != null) {
@@ -41,7 +49,7 @@ public class ControllerUser {
             return new ResponseEntity<>(res,HttpStatus.OK);
          }
         }catch(Exception e) {
-        	logger.error("---no fue posible encontrar los usuarios registrados----", e);
+        	logger.error("CO | no fue posible encontrar los usuarios registrados----", e);
         }
         return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
     }
@@ -58,14 +66,15 @@ public class ControllerUser {
                 return new ResponseEntity<>(res,HttpStatus.OK);
             }
         }catch(Exception e) {
-        	logger.error("---no fue posible buscar el usuario----",e);
+        	logger.error("---no fue posible buscar el usuario----", e);
+            return new ResponseEntity<>(res,HttpStatus.BAD_REQUEST);
         }  
         return new ResponseEntity<>(res,HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping ("register")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody RequestUserDto requestUserDto) throws Exception {
+    public ResponseEntity<Map<String, Object>> registerUser(@Valid @RequestBody RequestUserDto requestUserDto) throws Exception {
         Map<String, Object> res = new HashMap<>();
         ResponseUserDto responseUserDto = this.iServiceUser.createUser(requestUserDto);
 
