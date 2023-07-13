@@ -7,6 +7,7 @@ import com.credibanco.loginback.domain.model.User;
 import com.credibanco.loginback.application.service.IServiceUser;
 
 import com.credibanco.loginback.shared.exception.UnauthorizedException;
+import com.credibanco.loginback.shared.exception.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -33,8 +35,6 @@ public class ControllerUser {
     IServiceUser iServiceUser;
     @Autowired
     User user;
-
-    @ExceptionHandler(value = Exception.class)
 
     @GetMapping ("get/all")
     @ResponseBody
@@ -56,20 +56,12 @@ public class ControllerUser {
 
     @GetMapping ("get/{id}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getUserById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable long id){
-        Map<String, Object> res = new HashMap<>();
+    public ResponseEntity<ResponseUserDto> getUserById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable long id) throws UserNotFoundException {
         ResponseUserDto responseUserDto = iServiceUser.getUserById(token, id);
-        try {
-            if(responseUserDto != null) {
-                res.put("status", HttpStatus.OK);
-                res.put("data",responseUserDto);
-                return new ResponseEntity<>(res,HttpStatus.OK);
-            }
-        }catch(Exception e) {
-        	logger.error("---no fue posible buscar el usuario----", e);
-            return new ResponseEntity<>(res,HttpStatus.BAD_REQUEST);
-        }  
-        return new ResponseEntity<>(res,HttpStatus.BAD_REQUEST);
+        if(responseUserDto == null) {
+            throw new UserNotFoundException("User not found.");
+        }
+        return new ResponseEntity<>(responseUserDto, HttpStatus.OK);
     }
 
     @PostMapping ("register")

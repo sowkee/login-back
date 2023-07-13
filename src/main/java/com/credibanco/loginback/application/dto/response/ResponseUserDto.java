@@ -20,10 +20,10 @@ public class ResponseUserDto extends RequestUserDto{
 
     @JsonIgnore
     private String password;
-    @JsonProperty("otp")
-    @JsonIgnore
-    private Otp otp;
-    @JsonProperty("rol")
-    @JsonIgnore
-    private List<Rol> rol;
+//    @JsonProperty("otp")
+//    @JsonIgnore
+//    private Otp otp;
+//    @JsonProperty("rol")
+//    @JsonIgnore
+//    private List<Rol> rol;
 }
