@@ -23,8 +23,9 @@ public class User /*implements UserDetails*/ {
     @Column(name= "NAME")
     private String name;
     
-    @Column(name= "LAST_NAME")
+    @Column(name= "LASTNAME")
     private String lastName;
+    
     @Column (name= "EMAIL")
     private String email;
     

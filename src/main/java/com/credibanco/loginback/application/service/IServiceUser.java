@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public interface IServiceUser {
     List<ResponseUserDto> getAllUsers (String token);
-    ResponseUserDto getUserById (String token, long id);
-    ResponseUserDto createUser (RequestUserDto requestUserDto) throws Exception;
+    ResponseUserDto getUserById (long id);
+    ResponseUserDto createUser (RequestUserDto requestUserDto); //throws Exception;
     ResponseUserDto updateUser (String token, long id, RequestUserDto requestUserDto);
-    void deleteUser (String token, long id);
+    void deleteUser ( long id);
 
 }

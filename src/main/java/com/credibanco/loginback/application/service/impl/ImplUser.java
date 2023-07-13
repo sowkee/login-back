@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class ImplUser implements IServiceUser {
 	Logger logger = LoggerFactory.getLogger(ImplUser.class);
+	
     @Autowired
 	IRepositoryUser iRepositoryUser;
 	/*@Autowired
@@ -51,13 +52,15 @@ public class ImplUser implements IServiceUser {
     }
 
     @Override
-    public ResponseUserDto getUserById(String token, long id) {
+    public ResponseUserDto getUserById( long id) {
     	try {
-
-            Optional <User> optionalUser = iRepositoryUser.findById(id);
+    		Optional <User> optionalUser = iRepositoryUser.findById(id);
             if (optionalUser.isPresent()){
                 User user = optionalUser.get();
                 return UserMapper.convertUserToResponseDTO(user);
+            }else {
+            	logger.info("el usuario no se encontro");
+            	return null;
             }
     	}catch(Exception e) {
     		logger.error("Impl | Error", e);
@@ -101,7 +104,7 @@ public class ImplUser implements IServiceUser {
     }
 
     @Override
-    public void deleteUser(String token, long id) {
+    public void deleteUser( long id) {
     	try {
 			Optional<User> optionalUser = iRepositoryUser.findById(id);
 			if (optionalUser.isPresent()){

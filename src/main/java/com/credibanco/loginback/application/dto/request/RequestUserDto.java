@@ -38,9 +38,11 @@ public class RequestUserDto {
     @NotNull
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
             message = "La contraseña no es valida, ej.(Ejpl1234*)")
+    
     private String password;
     @JsonProperty("otp")
     private Otp otp;
+    
     @JsonProperty("rol")
     private List<Rol> rol;
 

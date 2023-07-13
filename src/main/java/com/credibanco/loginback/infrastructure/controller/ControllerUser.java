@@ -36,7 +36,7 @@ public class ControllerUser {
     @Autowired
     User user;
 
-    @GetMapping ("get/all")
+    @GetMapping ("all")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getAllUser(/*@RequestHeader(HttpHeaders.AUTHORIZATION) String token*/){
         Map<String, Object> res = new HashMap<>();
@@ -56,12 +56,15 @@ public class ControllerUser {
 
     @GetMapping ("get/{id}")
     @ResponseBody
-    public ResponseEntity<ResponseUserDto> getUserById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable long id) throws UserNotFoundException {
-        ResponseUserDto responseUserDto = iServiceUser.getUserById(token, id);
-        if(responseUserDto == null) {
-            throw new UserNotFoundException("User not found.");
+    public ResponseEntity<ResponseUserDto> getUserById(@PathVariable long id) {
+        ResponseUserDto responseUserDto = iServiceUser.getUserById(id);
+        if(responseUserDto != null) {
+            //throw new UserNotFoundException("User not found.");
+        	return ResponseEntity.status(HttpStatus.OK).body(responseUserDto);
+        }else {
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
+       // return new ResponseEntity<>(responseUserDto, HttpStatus.OK);
         }
-        return new ResponseEntity<>(responseUserDto, HttpStatus.OK);
     }
 
     @PostMapping ("register")
@@ -101,10 +104,10 @@ public class ControllerUser {
     
     @DeleteMapping ("delete/{id}")
     @ResponseBody
-    public ResponseEntity<?> deleteUser (@RequestHeader(HttpHeaders.AUTHORIZATION) String token, long id){
+    public ResponseEntity<Object> deleteUser (@PathVariable long id){
     	try {
-            iServiceUser.deleteUser(token, id);
-    	    return ResponseEntity.status(HttpStatus.OK).build();
+            iServiceUser.deleteUser(id);
+    	    return ResponseEntity.status(HttpStatus.OK).body("MESSAGE: " + " usuario eliminado");
     		}catch(Exception e) {
     			logger.error("---no fue posible eliminar el usuario --", e);
     		}
