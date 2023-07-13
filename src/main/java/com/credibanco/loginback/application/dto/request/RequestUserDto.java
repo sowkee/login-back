@@ -40,10 +40,8 @@ public class RequestUserDto {
             message = "La contraseña no es valida, ej.(Ejpl1234*)")
     private String password;
     @JsonProperty("otp")
-    @JsonIgnore(value = false)
     private Otp otp;
     @JsonProperty("rol")
-    @JsonIgnore(value = false)
     private List<Rol> rol;
 
 
