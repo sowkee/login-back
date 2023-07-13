@@ -12,7 +12,7 @@ public interface IServiceUser {
     List<ResponseUserDto> getAllUsers (String token);
     ResponseUserDto getUserById (long id);
     ResponseUserDto createUser (RequestUserDto requestUserDto); //throws Exception;
-    ResponseUserDto updateUser (String token, long id, RequestUserDto requestUserDto);
+    ResponseUserDto updateUser ( long id, RequestUserDto requestUserDto);
     void deleteUser ( long id);
 
 }

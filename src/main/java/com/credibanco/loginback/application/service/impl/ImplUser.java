@@ -22,54 +22,52 @@ import java.util.stream.Collectors;
 @Service
 public class ImplUser implements IServiceUser {
 	Logger logger = LoggerFactory.getLogger(ImplUser.class);
-	
-    @Autowired
+
+	@Autowired
 	IRepositoryUser iRepositoryUser;
-	/*@Autowired
-	PasswordEncoder passwordEncoder;
-	@Autowired
-	JwtUtils jwtUtils;
 
-	@Autowired
-	UserDetails userDetails;
-*/
-    @Override
-    public List<ResponseUserDto> getAllUsers(String token) {
-    	try {
-			/*if (!jwtUtils.validateToken(token, userDetails)) {
-				throw new UnauthorizedException("Token inválido o expirado");
-			}
-
+	/*
+	 * @Autowired PasswordEncoder passwordEncoder;
+	 * 
+	 * @Autowired JwtUtils jwtUtils;
+	 * 
+	 * @Autowired UserDetails userDetails;
+	 */
+	@Override
+	public List<ResponseUserDto> getAllUsers(String token) {
+		try {
+			/*
+			 * if (!jwtUtils.validateToken(token, userDetails)) { throw new
+			 * UnauthorizedException("Token inválido o expirado"); }
+			 * 
 			 */
-    		List<User> userList = iRepositoryUser.findAll();
-            return userList.stream()
-                    .map(UserMapper::convertUserToResponseDTO)
-                    .collect(Collectors.toList());
-    	}catch(Exception e) {
-    		logger.error("Impl | Error.", e);
-    	}
+			List<User> userList = iRepositoryUser.findAll();
+			return userList.stream().map(UserMapper::convertUserToResponseDTO).collect(Collectors.toList());
+		} catch (Exception e) {
+			logger.error("Impl | Error.", e);
+		}
 		return null;
-    }
+	}
 
-    @Override
-    public ResponseUserDto getUserById( long id) {
-    	try {
-    		Optional <User> optionalUser = iRepositoryUser.findById(id);
-            if (optionalUser.isPresent()){
-                User user = optionalUser.get();
-                return UserMapper.convertUserToResponseDTO(user);
-            }else {
-            	logger.info("el usuario no se encontro");
-            	return null;
-            }
-    	}catch(Exception e) {
-    		logger.error("Impl | Error", e);
-    	}
-        return null;
-    }
+	@Override
+	public ResponseUserDto getUserById(long id) {
+		try {
+			Optional<User> optionalUser = iRepositoryUser.findById(id);
+			if (optionalUser.isPresent()) {
+				User user = optionalUser.get();
+				return UserMapper.convertUserToResponseDTO(user);
+			} else {
+				logger.info("el usuario no se encontro");
+				return null;
+			}
+		} catch (Exception e) {
+			logger.error("Impl | Error", e);
+		}
+		return null;
+	}
 
-    @Override
-    public ResponseUserDto createUser(RequestUserDto requestUserDto)  {
+	@Override
+	public ResponseUserDto createUser(RequestUserDto requestUserDto) {
 
 		try {
 			logger.info("Impl | verifica si existe la identificacion");
@@ -77,42 +75,42 @@ public class ImplUser implements IServiceUser {
 			if (user != null) {
 				logger.info("Impl | User exist.");
 				return null;
-			}else {
+			} else {
 				User userMapper = UserMapper.convertRequestToUser(requestUserDto);
-				//userMapper.setPassword(passwordEncoder.encode(requestUserDto.getPassword()));
+				// userMapper.setPassword(passwordEncoder.encode(requestUserDto.getPassword()));
 				iRepositoryUser.saveAndFlush(userMapper);
 				logger.info("Impl | Save&Flush");
 				return UserMapper.convertUserToResponseDTO(userMapper);
 			}
 
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("Impl | Error creating new user.", e);
 			return null;
 		}
-    }
+	}
 
-    @Override
-    public ResponseUserDto updateUser(String token, long id, RequestUserDto requestUserDto) {
-    	try {
-            User user = iRepositoryUser.findById(id).orElseThrow(NoSuchElementException::new);
-            BeanUtils.copyProperties(requestUserDto, user);
-            return UserMapper.convertUserToResponseDTO(user);
-    	}catch(Exception e) {
-    		logger.error("Impl | Error", e);
-    	}
+	@Override
+	public ResponseUserDto updateUser(long id, RequestUserDto requestUserDto) {
+		try {
+			User user = iRepositoryUser.findById(id).orElseThrow(NoSuchElementException::new);
+			BeanUtils.copyProperties(requestUserDto, user);
+			return UserMapper.convertUserToResponseDTO(user);
+		} catch (Exception e) {
+			logger.error("Impl | Error", e);
+		}
 		return null;
-    }
+	}
 
-    @Override
-    public void deleteUser( long id) {
-    	try {
+	@Override
+	public void deleteUser(long id) {
+		try {
 			Optional<User> optionalUser = iRepositoryUser.findById(id);
-			if (optionalUser.isPresent()){
+			if (optionalUser.isPresent()) {
 				User user = optionalUser.get();
 				iRepositoryUser.delete(user);
 			}
-    	}catch(Exception e) {
-    		logger.error("Impl | Error", e);
-    	}
-    }
+		} catch (Exception e) {
+			logger.error("Impl | Error", e);
+		}
+	}
 }
