@@ -23,7 +23,7 @@ public class User /*implements UserDetails*/ {
     @Column(name= "NAME")
     private String name;
     @Column(name= "LASTNAME")
-    private String lastName;
+    private String lastname;
     @Column (name= "EMAIL")
     private String email;
     @Column(name= "PHONE_NUMBER")
@@ -60,12 +60,12 @@ public class User /*implements UserDetails*/ {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getlastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setlastname(String lastName) {
+        this.lastname = lastName;
     }
 
     public String getEmail() {

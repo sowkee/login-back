@@ -19,7 +19,6 @@ import java.util.List;
 @RestController
 @RequestMapping ("users")
 @Validated
-@ControllerAdvice
 public class ControllerUser {
 
 

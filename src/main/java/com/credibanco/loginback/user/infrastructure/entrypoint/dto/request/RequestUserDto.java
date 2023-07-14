@@ -22,12 +22,12 @@ public class RequestUserDto {
     @NotNull
     private String name;
     
-    @JsonProperty("lastName")
+    @JsonProperty("lastname")
     @NotNull
-    private String lastName;
+    private String lastname;
     
     @JsonProperty("email")
-    @Email(message = "El correo no es valido.")
+    @Email(regexp = "^[^@]+@[^@]+\\.[^@]+$", message = "Invalid Email, ej.(email@email.com)")
     private String email;
     
     @JsonProperty("phoneNumber")
@@ -36,7 +36,7 @@ public class RequestUserDto {
     @JsonProperty("password")
     @NotNull
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-            message = "La contraseña no es valida, ej.(Ejpl1234*)")
+            message = "Password invalid, ej.(Ejpl1234*)")
     private String password;
     @JsonProperty("otp")
     private Otp otp;
@@ -60,12 +60,12 @@ public class RequestUserDto {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {

@@ -1,5 +1,6 @@
 package com.credibanco.loginback.user.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 
@@ -19,6 +20,7 @@ public class Rol implements Serializable {
     private String rolName;
 
     @ManyToMany(mappedBy = "rol")
+    @JsonIgnore
     private List<User> user;
 
     public long getId() {

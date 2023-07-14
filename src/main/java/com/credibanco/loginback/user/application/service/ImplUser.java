@@ -1,5 +1,6 @@
 package com.credibanco.loginback.user.application.service;
 
+import com.credibanco.loginback.user.application.exception.*;
 import com.credibanco.loginback.user.infrastructure.entrypoint.dto.request.RequestPasswordDto;
 import com.credibanco.loginback.user.infrastructure.entrypoint.dto.response.ResponsePasswordDto;
 import com.credibanco.loginback.user.infrastructure.entrypoint.dto.response.ResponseUserDto;
@@ -8,15 +9,13 @@ import com.credibanco.loginback.user.domain.entity.User;
 import com.credibanco.loginback.user.infrastructure.entrypoint.repository.IRepositoryUser;
 import com.credibanco.loginback.user.domain.service.IServiceUser;
 import com.credibanco.loginback.user.infrastructure.entrypoint.mapper.UserMapper;
-import com.credibanco.loginback.user.application.exception.EmptyEntityException;
-import com.credibanco.loginback.user.application.exception.UserExistException;
-import com.credibanco.loginback.user.application.exception.UserNotFoundException;
+import com.credibanco.loginback.user.infrastructure.entrypoint.utils.ValidateCredentials;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,7 +28,7 @@ public class ImplUser implements IServiceUser {
     public List<ResponseUserDto> getAllUsers()
 			throws EmptyEntityException {
 		List<User> userList = iRepositoryUser.findAll();
-		if (userList == null) {
+		if (userList.isEmpty()) {
 			logger.info("Impl | Entity is empty.");
 			throw new EmptyEntityException("Entity is empty.");
 		}
@@ -52,16 +51,24 @@ public class ImplUser implements IServiceUser {
 
     @Override
     public ResponseUserDto createUser(RequestUserDto requestUserDto)
-			throws UserExistException {
-			User user = this.iRepositoryUser.findByEmail(requestUserDto.getEmail());
-			if (user != null) {
-				logger.info("Impl | User exist.");
-				throw new UserExistException("User exist.");
-			}
-			UserMapper.convertRequestToUser(requestUserDto);
-			iRepositoryUser.saveAndFlush(user);
-			logger.info("Impl | Save&Flush");
-			return UserMapper.convertUserToResponseDTO(user);
+			throws UserExistException, CredentialNullException {
+
+		ValidateCredentials.credentialValidator(requestUserDto.getName(), "Name cannot be null");
+		ValidateCredentials.credentialValidator(requestUserDto.getLastname(), "Lastname cannot be null");
+		ValidateCredentials.credentialValidator(requestUserDto.getPassword(), "Password cannot be null");
+
+		User userEmail = this.iRepositoryUser.findByEmail(requestUserDto.getEmail());
+		User userPhone = this.iRepositoryUser.findByPhoneNumber(requestUserDto.getPhoneNumber());
+
+		if (userEmail != null || userPhone != null) {
+			logger.info("Impl | User exist.");
+			throw new UserExistException("User exist.");
+		}
+
+		User user = UserMapper.convertRequestToUser(requestUserDto);
+		iRepositoryUser.saveAndFlush(user);
+		logger.info("Impl | Save&Flush");
+		return UserMapper.convertUserToResponseDTO(user);
     }
 
     @Override

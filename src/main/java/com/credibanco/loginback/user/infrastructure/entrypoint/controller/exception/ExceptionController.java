@@ -1,13 +1,18 @@
 package com.credibanco.loginback.user.infrastructure.entrypoint.controller.exception;
 
-import com.credibanco.loginback.user.application.exception.EmptyEntityException;
-import com.credibanco.loginback.user.application.exception.UnauthorizedException;
-import com.credibanco.loginback.user.application.exception.UserExistException;
-import com.credibanco.loginback.user.application.exception.UserNotFoundException;
+import com.credibanco.loginback.user.application.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ExceptionController {
@@ -25,6 +30,21 @@ public class ExceptionController {
     @ExceptionHandler(value = UserExistException.class)
     public  ResponseEntity<String> handlerUserExistException (UserExistException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(value = SQLException.class)
+    public ResponseEntity<String> handlerSqlIntegrityException (SQLException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<List<String>> handleValidationException(MethodArgumentNotValidException ex, BindingResult bindingResult) {
+        List<String> errorMessages = bindingResult.getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(errorMessages, HttpStatus.UNPROCESSABLE_ENTITY) ;
     }
 
 }
