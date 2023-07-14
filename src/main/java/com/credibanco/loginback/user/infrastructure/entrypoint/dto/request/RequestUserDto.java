@@ -38,10 +38,6 @@ public class RequestUserDto {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
             message = "Password invalid, ej.(Ejpl1234*)")
     private String password;
-    @JsonProperty("otp")
-    private Otp otp;
-    @JsonProperty("rol")
-    private List<Rol> rol;
 
 
     public long getId() {
@@ -93,19 +89,4 @@ public class RequestUserDto {
         this.password = password;
     }
 
-    public Otp getOtp() {
-        return otp;
-    }
-
-    public void setOtp(Otp otp) {
-        this.otp = otp;
-    }
-
-    public List<Rol> getRol() {
-        return rol;
-    }
-
-    public void setRol(List<Rol> rol) {
-        this.rol = rol;
-    }
 }
