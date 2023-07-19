@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,11 +26,14 @@ public class ImplUser implements IServiceUser {
     @Override
     public List<ResponseUserDto> getAllUsers()
 			throws EmptyEntityException {
+
 		List<User> userList = iRepositoryUser.findAll();
+
 		if (userList.isEmpty()) {
 			logger.info("Impl | Entity is empty.");
 			throw new EmptyEntityException("Entity is empty.");
 		}
+
 		return userList.stream()
 				.map(UserMapper::convertUserToResponseDTO)
 				.collect(Collectors.toList());

@@ -3,6 +3,8 @@ package com.credibanco.loginback.otp.domain.entity;
 
 import com.credibanco.loginback.user.domain.entity.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -24,9 +26,9 @@ public class Otp implements Serializable {
     private String operation;
     @Column(name = "COMUNICATION")
     private String comunication;
-    @JsonBackReference
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
+    @JsonIgnore
     private User user;
 
     public long getId() {

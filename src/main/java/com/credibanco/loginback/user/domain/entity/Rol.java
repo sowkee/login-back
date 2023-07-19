@@ -1,6 +1,6 @@
 package com.credibanco.loginback.user.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.stereotype.Component;
 
 
@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "ROLES")
-@Component
 public class Rol implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

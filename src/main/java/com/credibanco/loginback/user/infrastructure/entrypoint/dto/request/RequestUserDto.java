@@ -1,7 +1,6 @@
 package com.credibanco.loginback.user.infrastructure.entrypoint.dto.request;
 
-import com.credibanco.loginback.otp.domain.entity.Otp;
-import com.credibanco.loginback.user.domain.entity.Rol;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
@@ -9,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
-import java.util.List;
+
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -38,10 +37,6 @@ public class RequestUserDto {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
             message = "Password invalid, ej.(Ejpl1234*)")
     private String password;
-    @JsonProperty("otp")
-    private Otp otp;
-    @JsonProperty("rol")
-    private List<Rol> rol;
 
 
     public long getId() {
@@ -93,19 +88,4 @@ public class RequestUserDto {
         this.password = password;
     }
 
-    public Otp getOtp() {
-        return otp;
-    }
-
-    public void setOtp(Otp otp) {
-        this.otp = otp;
-    }
-
-    public List<Rol> getRol() {
-        return rol;
-    }
-
-    public void setRol(List<Rol> rol) {
-        this.rol = rol;
-    }
 }
