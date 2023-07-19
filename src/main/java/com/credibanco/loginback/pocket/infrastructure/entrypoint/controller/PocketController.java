@@ -2,8 +2,6 @@ package com.credibanco.loginback.pocket.infrastructure.entrypoint.controller;
 
 import com.credibanco.loginback.pocket.domain.service.IPocketService;
 import com.credibanco.loginback.pocket.infrastructure.entrypoint.dto.response.PocketResponseDto;
-import com.credibanco.loginback.user.domain.entity.User;
-import com.credibanco.loginback.user.infrastructure.entrypoint.dto.response.ResponseUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

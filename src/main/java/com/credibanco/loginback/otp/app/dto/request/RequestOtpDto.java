@@ -1,6 +1,6 @@
 package com.credibanco.loginback.otp.app.dto.request;
 
-import com.credibanco.loginback.user.domain.entity.User;
+import com.credibanco.loginback.shared.user.domain.entity.User;
 import org.springframework.stereotype.Component;
 
 
