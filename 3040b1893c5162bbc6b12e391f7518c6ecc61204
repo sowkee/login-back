@@ -1,0 +1,76 @@
+[33mcommit 3040b1893c5162bbc6b12e391f7518c6ecc61204[m[33m ([m[1;36mHEAD -> [m[1;32mdev-eh[m[33m, [m[1;31morigin/dev-eh[m[33m)[m
+Author: juan <rjuankrlos@gmail.com>
+Date:   Wed Jul 19 21:44:26 2023 -0500
+
+    autenticacion 2.0
+
+[33mcommit 855204751b3a50fdf0fef16f354b25cbddf9634e[m
+Author: Juan Rodriguez <75664608+sowkee@users.noreply.github.com>
+Date:   Fri Jul 14 17:12:04 2023 -0500
+
+    commit
+
+[33mcommit 5f35f3c72e3ca94487a3529b8e66a99c364d410e[m
+Merge: 5d75a7c ddc2a6b
+Author: juan <rjuankrlos@gmail.com>
+Date:   Fri Jul 14 00:02:40 2023 -0500
+
+    Merge branch 'dev-eh' of https://github.com/sowkee/login-back into dev-eh
+
+[33mcommit 5d75a7cdde4772cbedd2d3919051812b0d1e18e0[m
+Author: juan <rjuankrlos@gmail.com>
+Date:   Fri Jul 14 00:00:58 2023 -0500
+
+    manejo de excepciones
+
+[33mcommit ddc2a6bef7a57b4d175755fbbc6163a923e65207[m
+Author: Juan Rodriguez <75664608+sowkee@users.noreply.github.com>
+Date:   Thu Jul 13 23:59:45 2023 -0500
+
+    delete directory
+
+[33mcommit c7b3a1e5e10f2799ba40237adea030b6d0e4c8d5[m
+Author: Juan Rodriguez <75664608+sowkee@users.noreply.github.com>
+Date:   Thu Jul 13 23:59:28 2023 -0500
+
+    delete directory
+
+[33mcommit 6d5b2317077ff168c561771c98eff3552c75c23f[m
+Author: Juan Rodriguez <75664608+sowkee@users.noreply.github.com>
+Date:   Thu Jul 13 23:59:07 2023 -0500
+
+    delete application
+    
+    se cambio distribucion de paquetes
+
+[33mcommit 3b9fd63c5f03c57ddce93adbf6b9343665ca3ad9[m
+Author: Juan Rodriguez <75664608+sowkee@users.noreply.github.com>
+Date:   Thu Jul 13 17:36:20 2023 -0500
+
+    manejo de excepciones
+
+[33mcommit e250859278516caf32fad72f587256edd525dd6b[m
+Author: juan <rjuankrlos@gmail.com>
+Date:   Thu Jul 13 00:50:13 2023 -0500
+
+    exeptionHandler
+
+[33mcommit f3903eec40beb331c08377b3469c91a38b2b29b9[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/dev[m[33m, [m[1;32mmain[m[33m, [m[1;32mdev[m[33m)[m
+Author: Juan Rodriguez <75664608+sowkee@users.noreply.github.com>
+Date:   Wed Jul 12 17:36:24 2023 -0500
+
+    comentarios
+    
+    se comentaron algunas clases(jwt, security, config, etc)
+
+[33mcommit 21c483930b7a4f0d38df61dcfa7d4af0df586c53[m
+Author: Juan Rodriguez <75664608+sowkee@users.noreply.github.com>
+Date:   Tue Jul 11 17:10:42 2023 -0500
+
+    arreglo en token, aun hay errores(401)
+
+[33mcommit fe90fcaef456f07fb018c9553598afb621f4bb17[m
+Author: juan <rjuankrlos@gmail.com>
+Date:   Sun Jul 9 23:04:57 2023 -0500
+
+    commit

@@ -13,4 +13,5 @@ public class LoginBackApplication {
 		SpringApplication.run(LoginBackApplication.class, args);
 	}
 
+
 }
