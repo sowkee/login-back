@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,10 +56,10 @@ public class ImplUser implements IServiceUser {
 		ValidateCredentials.credentialValidator(requestUserDto.getLastname(), "Lastname cannot be null");
 		ValidateCredentials.credentialValidator(requestUserDto.getPassword(), "Password cannot be null");
 
-		User userEmail = this.iRepositoryUser.findByEmail(requestUserDto.getEmail());
-		User userPhone = this.iRepositoryUser.findByPhoneNumber(requestUserDto.getPhoneNumber());
+		Optional<User> userEmail = this.iRepositoryUser.findOneByEmail(requestUserDto.getEmail());
+		Optional<User> userPhone = this.iRepositoryUser.findByPhoneNumber(requestUserDto.getPhoneNumber());
 
-		if (userEmail != null || userPhone != null) {
+		if (userEmail.isPresent()|| userPhone.isPresent()) {
 			logger.info("Impl | User exist.");
 			throw new UserExistException("User exist.");
 		}
