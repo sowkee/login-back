@@ -1,6 +1,6 @@
 package com.credibanco.loginback.auth.infrastructure.security;
 
-import com.credibanco.loginback.user.domain.entity.User;
+import com.credibanco.loginback.shared.user.domain.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

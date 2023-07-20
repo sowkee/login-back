@@ -2,10 +2,6 @@ package com.credibanco.loginback.shared.user.domain.entity;
 
 import com.credibanco.loginback.otp.domain.entity.Otp;
 import com.fasterxml.jackson.annotation.*;
-<<<<<<< HEAD:src/main/java/com/credibanco/loginback/user/domain/entity/User.java
-
-=======
->>>>>>> 5468f53ac6d4d2a45395015ce3066bdd3df3fa1b:src/main/java/com/credibanco/loginback/shared/user/domain/entity/User.java
 import java.util.List;
 import javax.persistence.*;
 
@@ -29,10 +25,6 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private Otp otp;
-<<<<<<< HEAD:src/main/java/com/credibanco/loginback/user/domain/entity/User.java
-
-=======
->>>>>>> 5468f53ac6d4d2a45395015ce3066bdd3df3fa1b:src/main/java/com/credibanco/loginback/shared/user/domain/entity/User.java
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "USER_ROLES",
@@ -105,8 +97,5 @@ public class User {
     public void setRol(List<Rol> rol) {
         this.rol = rol;
     }
-<<<<<<< HEAD:src/main/java/com/credibanco/loginback/user/domain/entity/User.java
 
-=======
->>>>>>> 5468f53ac6d4d2a45395015ce3066bdd3df3fa1b:src/main/java/com/credibanco/loginback/shared/user/domain/entity/User.java
 }

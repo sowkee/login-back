@@ -1,8 +1,8 @@
 package com.credibanco.loginback.auth.infrastructure.security;
 
 
-import com.credibanco.loginback.user.domain.entity.User;
-import com.credibanco.loginback.user.infrastructure.entrypoint.repository.IRepositoryUser;
+import com.credibanco.loginback.shared.user.domain.entity.User;
+import com.credibanco.loginback.shared.user.infrastructure.entrypoint.repository.IRepositoryUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

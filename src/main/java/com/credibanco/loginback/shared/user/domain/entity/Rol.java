@@ -1,10 +1,6 @@
 package com.credibanco.loginback.shared.user.domain.entity;
 
 import com.fasterxml.jackson.annotation.*;
-<<<<<<< HEAD:src/main/java/com/credibanco/loginback/user/domain/entity/Rol.java
-import org.springframework.stereotype.Component;
-=======
->>>>>>> 5468f53ac6d4d2a45395015ce3066bdd3df3fa1b:src/main/java/com/credibanco/loginback/shared/user/domain/entity/Rol.java
 
 
 import javax.persistence.*;

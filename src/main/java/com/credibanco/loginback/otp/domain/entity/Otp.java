@@ -1,15 +1,8 @@
 package com.credibanco.loginback.otp.domain.entity;
 
 
-<<<<<<< HEAD
-import com.credibanco.loginback.user.domain.entity.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-=======
 import com.credibanco.loginback.shared.user.domain.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
->>>>>>> 5468f53ac6d4d2a45395015ce3066bdd3df3fa1b
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
