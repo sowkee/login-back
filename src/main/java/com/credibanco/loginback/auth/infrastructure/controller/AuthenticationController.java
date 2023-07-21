@@ -1,9 +1,10 @@
 package com.credibanco.loginback.auth.infrastructure.controller;
-/*
-import com.credibanco.loginback.application.dto.request.JwtRequest;
-import com.credibanco.loginback.application.dto.response.JwtResponse;
-import com.credibanco.loginback.application.service.impl.UserDetailsServiceImpl;
-import com.credibanco.loginback.infrastructure.security.JwtUtils;
+
+
+import com.credibanco.loginback.auth.infrastructure.dto.request.JwtRequest;
+import com.credibanco.loginback.auth.infrastructure.dto.response.JwtResponse;
+import com.credibanco.loginback.auth.infrastructure.security.JwtUtils;
+import com.credibanco.loginback.auth.infrastructure.security.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-
+/*
 
 @RestController
 @CrossOrigin("*")
@@ -32,10 +33,8 @@ public class AuthenticationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-
     Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
-/*
+
     @PostMapping("/auth")
     public ResponseEntity<?> authenticate(@RequestBody JwtRequest jwtRequest) {
         try {
@@ -62,6 +61,8 @@ public class AuthenticationController {
 }
 
  */
+
+
 
 
 
