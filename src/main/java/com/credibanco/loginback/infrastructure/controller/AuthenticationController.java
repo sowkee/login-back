@@ -1,5 +1,5 @@
 package com.credibanco.loginback.infrastructure.controller;
-/*
+
 import com.credibanco.loginback.application.dto.request.JwtRequest;
 import com.credibanco.loginback.application.dto.response.JwtResponse;
 import com.credibanco.loginback.application.service.impl.UserDetailsServiceImpl;
@@ -32,10 +32,11 @@ public class AuthenticationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
-/*
+
     @PostMapping("/auth")
     public ResponseEntity<?> authenticate(@RequestBody JwtRequest jwtRequest) {
         try {
@@ -61,7 +62,7 @@ public class AuthenticationController {
     }
 }
 
- */
+
 
 
 

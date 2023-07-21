@@ -1,5 +1,5 @@
 package com.credibanco.loginback.application.service.impl;
-/*
+
 import com.credibanco.loginback.domain.model.User;
 import com.credibanco.loginback.domain.repository.IRepositoryUser;
 import org.slf4j.Logger;
@@ -33,6 +33,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 }
 
- */
+
 
 

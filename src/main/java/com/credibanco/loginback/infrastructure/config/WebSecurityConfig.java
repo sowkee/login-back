@@ -1,5 +1,5 @@
 package com.credibanco.loginback.infrastructure.config;
-/*
+
 
 import com.credibanco.loginback.application.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
 
 
 @Configuration
@@ -34,6 +33,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 }
 
- */
 
 
