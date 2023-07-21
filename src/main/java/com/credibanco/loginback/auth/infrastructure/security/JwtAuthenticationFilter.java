@@ -2,10 +2,9 @@ package com.credibanco.loginback.auth.infrastructure.security;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.catalina.Authenticator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -14,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
-import javax.management.remote.JMXAuthenticator;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +24,8 @@ import java.util.Collections;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     @Autowired
-    private JwtUtils jwtUtils;
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private AuthenticationManager authenticationManager;
+
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -47,11 +44,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 authCredentials.getPassword(),
                 Collections.emptyList());
 
-
-        return getAuthenticationManager().authenticate(authenticationToken);
+        return authenticationManager.authenticate(authenticationToken);
     }
-
-
 
     @Override
     protected void successfulAuthentication(
@@ -59,7 +53,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             Authentication authResult) throws IOException, ServletException {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
-        String token = JwtUtils.createToken(userDetails.getName(), userDetails.getUsername());
+        String token = JwtUtils.createToken(userDetails.getUsername());
 
         response.addHeader("Authorization", "Bearer " + token);
         response.getWriter().flush();

@@ -5,7 +5,7 @@ import com.credibanco.loginback.shared.user.application.exception.EmptyEntityExc
 import com.credibanco.loginback.shared.user.application.exception.UserExistException;
 import com.credibanco.loginback.shared.user.application.exception.UserNotFoundException;
 import com.credibanco.loginback.shared.user.domain.entity.User;
-import com.credibanco.loginback.shared.user.domain.service.IServiceUser;
+import com.credibanco.loginback.shared.user.domain.service.IUserService;
 import com.credibanco.loginback.shared.user.infrastructure.entrypoint.dto.response.ResponseUserDto;
 import com.credibanco.loginback.shared.user.infrastructure.entrypoint.mapper.UserMapper;
 import com.credibanco.loginback.shared.user.infrastructure.entrypoint.repository.IRepositoryUser;
@@ -20,8 +20,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class ImplUser implements IServiceUser {
-	Logger logger = LoggerFactory.getLogger(ImplUser.class);
+public class UserImpl implements IUserService {
+	Logger logger = LoggerFactory.getLogger(UserImpl.class);
     @Autowired
 	IRepositoryUser iRepositoryUser;
     @Override
@@ -63,10 +63,10 @@ public class ImplUser implements IServiceUser {
 		ValidateCredentials.credentialValidator(requestUserDto.getLastname(), "Lastname cannot be null");
 		ValidateCredentials.credentialValidator(requestUserDto.getPassword(), "Password cannot be null");
 
-		Optional<User> userEmail = this.iRepositoryUser.findOneByEmail(requestUserDto.getEmail());
+		Optional<User> userEmail = this.iRepositoryUser.findUserByEmail(requestUserDto.getEmail());
 		Optional<User> userPhone = this.iRepositoryUser.findByPhoneNumber(requestUserDto.getPhoneNumber());
 
-		if (userEmail.isPresent()|| userPhone.isPresent()) {
+		if (userEmail.isPresent() || userPhone.isPresent()) {
 			logger.info("Impl | User exist.");
 			throw new UserExistException("User exist.");
 		}
@@ -105,4 +105,6 @@ public class ImplUser implements IServiceUser {
 		iRepositoryUser.delete(user);
 		return true;
     }
+
+
 }

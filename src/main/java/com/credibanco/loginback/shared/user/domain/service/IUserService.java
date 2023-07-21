@@ -1,6 +1,7 @@
 package com.credibanco.loginback.shared.user.domain.service;
 
 import com.credibanco.loginback.shared.user.application.exception.*;
+import com.credibanco.loginback.shared.user.domain.entity.User;
 import com.credibanco.loginback.shared.user.infrastructure.entrypoint.dto.response.ResponseUserDto;
 import com.credibanco.loginback.shared.user.infrastructure.entrypoint.dto.request.RequestUserDto;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service
-public interface IServiceUser {
+public interface IUserService {
     List<ResponseUserDto> getAllUsers () throws EmptyEntityException;
     ResponseUserDto getUserById (long id) throws UserNotFoundException;
     ResponseUserDto createUser (RequestUserDto requestUserDto) throws UserExistException, SQLException, InvalidPasswordException, CredentialNullException;
