@@ -8,10 +8,11 @@ import java.util.List;
 
 @Service
 public interface IPocketService {
-
     List<PocketResponseDto> getPocketOfUser (long userId);
     PocketResponseDto newPocket (PocketRequestDto pocketRequestDto);
     PocketResponseDto updatePocket (long id, PocketRequestDto pocketRequestDto);
     boolean deleteOnePocket (long id, PocketRequestDto pocketRequestDto);
 
 }
+
+

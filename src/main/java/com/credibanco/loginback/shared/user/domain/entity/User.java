@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "USERS")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
@@ -16,23 +15,11 @@ public class User {
     private String name;
     @Column(name= "LASTNAME")
     private String lastname;
-    @Column (name= "EMAIL")
+    @Column(name = "EMAIL")
     private String email;
-    @Column(name= "PHONE_NUMBER")
-    private String phoneNumber;
     @Column(name= "PASSWORD")
     private String password;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Otp otp;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "USER_ROLES",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROL_ID")
-    )
-    @JsonIgnore
-    private List<Rol> rol;
+
 
     public long getId() {
 		return id;
@@ -66,14 +53,6 @@ public class User {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
      public String getPassword() {
          return password;
      }
@@ -81,21 +60,5 @@ public class User {
      public void setPassword(String password) {
          this.password = password;
      }
-
-     public Otp getOtp() {
-         return otp;
-     }
-
-     public void setOtp(Otp otp) {
-         this.otp = otp;
-     }
-
-    public List<Rol> getRol() {
-        return rol;
-    }
-
-    public void setRol(List<Rol> rol) {
-        this.rol = rol;
-    }
 
 }

@@ -4,7 +4,7 @@ import com.credibanco.loginback.shared.user.infrastructure.entrypoint.dto.respon
 import com.credibanco.loginback.shared.user.application.exception.EmptyEntityException;
 import com.credibanco.loginback.shared.user.application.exception.UserExistException;
 import com.credibanco.loginback.shared.user.infrastructure.entrypoint.dto.request.RequestUserDto;
-import com.credibanco.loginback.shared.user.domain.service.IUserService;
+import com.credibanco.loginback.shared.user.domain.service.IServiceUser;
 import com.credibanco.loginback.shared.user.application.exception.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,20 +17,18 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping ("users")
+@RequestMapping ("admin")
 @Validated
 public class ControllerUser {
-
-
-	Logger logger= LoggerFactory.getLogger(ControllerUser.class);
+	Logger logger = LoggerFactory.getLogger(ControllerUser.class);
     @Autowired
-    IUserService iUserService;
+    IServiceUser iServiceUser;
 
     @GetMapping ("all")
     @ResponseBody
-    public ResponseEntity<ResponseUserDto> getAllUser()
+    public ResponseEntity<ResponseUserDto> getAllUser(@RequestHeader("Authorization") String token)
             throws EmptyEntityException {
-        List<ResponseUserDto> responseUserDto = iUserService.getAllUsers();
+        List<ResponseUserDto> responseUserDto = iServiceUser.getAllUsers();
         if (responseUserDto == null) {
             throw new EmptyEntityException("Entity is empty");
         }
@@ -41,7 +39,7 @@ public class ControllerUser {
     @ResponseBody
     public ResponseEntity<ResponseUserDto> getUserById(
             @PathVariable long id) throws UserNotFoundException {
-        ResponseUserDto responseUserDto = iUserService.getUserById(id);
+        ResponseUserDto responseUserDto = iServiceUser.getUserById(id);
         if(responseUserDto == null) {
             throw new UserNotFoundException("User not found.");
         }
@@ -53,7 +51,7 @@ public class ControllerUser {
     public ResponseEntity<ResponseUserDto> registerUser(
             @Valid
             @RequestBody RequestUserDto requestUserDto) throws Exception {
-        ResponseUserDto responseUserDto = this.iUserService.createUser(requestUserDto);
+        ResponseUserDto responseUserDto = this.iServiceUser.createUser(requestUserDto);
          if (responseUserDto == null) {
              throw new UserExistException("User exist.");
         }
@@ -65,7 +63,7 @@ public class ControllerUser {
     public ResponseEntity<ResponseUserDto> updateUser(
             @PathVariable long id,
             @RequestBody RequestUserDto requestUserDto) throws UserNotFoundException {
-        ResponseUserDto response = iUserService.updateUser(id, requestUserDto);
+        ResponseUserDto response = iServiceUser.updateUser(id, requestUserDto);
         return new ResponseEntity(response, HttpStatus.OK);
     }
     
@@ -73,7 +71,7 @@ public class ControllerUser {
     @ResponseBody
     public ResponseEntity<String> deleteUser (
             @PathVariable long id) throws UserNotFoundException {
-        iUserService.deleteUser(id);
+        iServiceUser.deleteUser(id);
         return new ResponseEntity("Deleted.", HttpStatus.OK);
     }
 }

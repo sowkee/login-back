@@ -1,0 +1,10 @@
+{ "username": "nombre_de_usuario", "firstName": "nombre", "lastName": "apellido", "email": "correo@example.com", "enabled": true, "credentials": [ { "type": "password", "value": "contraseña" } ] }
+
+
+username: b2b-anonymous
+password: b2b-anonymous
+
+#SSO
+username: psp
+password: SSO#1234567
+url: https://sso-sso-pruebas.apps-pruebas.credibanco.com/auth/realms/master/protocol/openid-connect/auth?client_id=security-admin-console&redirect_uri=https%3A%2F%2Fsso-sso-pruebas.apps-pruebas.credibanco.com%2Fauth%2Fadmin%2Fmaster%2Fconsole%2F&state=7478630e-5c56-4291-a35e-a415554f6372&response_mode=fragment&response_type=code&scope=openid&nonce=56dd4f35-e65f-4671-9f1f-b0c498aeeed7&code_challenge=WtLyjBrvHTXMf9qkMb-9gX7oOqn6OO5gEpV9OihJuz8&code_challenge_method=S256

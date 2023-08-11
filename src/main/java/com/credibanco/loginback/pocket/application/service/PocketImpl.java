@@ -17,13 +17,11 @@ public class PocketImpl implements IPocketService {
 
     @Autowired
     IPocketRepository iPocketRepository;
-
-
     @Override
     public List<PocketResponseDto> getPocketOfUser(
-            long userId) {
+            long id) {
 
-        List<Pocket> pockets = this.iPocketRepository.findByUserId(userId);
+        List<Pocket> pockets = this.iPocketRepository.findUserById(id);
 
         return pockets.stream()
                 .map(PocketMapper::convertPocketToResponse)
@@ -68,3 +66,5 @@ public class PocketImpl implements IPocketService {
         return true;
     }
 }
+
+
